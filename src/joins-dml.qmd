@@ -1,0 +1,166 @@
+---
+title: SQL Joins
+author: John Leonard
+date: last-modified
+format:
+    html:
+        theme: cosmo
+        toc: true
+        embed-resources: true
+        code-copy: true
+---
+
+This is a tutorial workbook.  We've giving this teaching approach a try.
+
+The topic of this workbook is SQL joins.
+
+```{python}
+#| echo: false
+#| eval: true
+import os
+import pandas as pd
+from sqlalchemy import create_engine
+from dotenv import load_dotenv
+from IPython.display import Markdown
+from tabulate import tabulate
+# load credentials from file ~/.env to OS environment
+load_dotenv()
+# use these credentials to populate a dictionary
+config = {
+  'user': os.getenv("HW6_USER"),
+  'password': os.getenv("HW6_PASSWORD"),
+  'host': os.getenv("HW6_HOST"),
+  'database': os.getenv("HW6_DB_NAME")
+}
+engine_uri = f"mysql+pymysql://{config['user']}:{config['password']}@{config['host']}/{config['database']}"
+
+engine_uri_for_show = f"mysql+pymysql://{config['user']}:**pwd-goes-here**@{config['host']}/{config['database']}"
+print(engine_uri_for_show)
+
+cnx = create_engine(engine_uri)
+
+def run_query( sql ):
+    df = None
+    try:
+        df = pd.read_sql(sql,cnx)
+    except Exception as e:
+        message = str(e)
+        print(f"An error occurred:\n\n{message}\n\nIgnoring and moving on.")
+        df = pd.DataFrame()   
+    return df
+```
+
+## What are the the tables in the current database?
+
+Here is the query
+
+```{python}
+sql = f"""
+show tables;
+"""
+```
+
+And here is the result.
+
+```{python}
+#| echo: false
+#| eval: true
+df = run_query( sql )
+df
+```
+
+## Run a report of employee last name and department id
+
+Here is the query
+
+```{python}
+sql = f"""
+show tables;
+"""
+```
+
+And here is the result.
+
+```{python}
+#| echo: false
+#| eval: true
+df = run_query( sql )
+df
+```
+
+## How do I get department name?
+
+JOIN
+
+Here is the query
+
+```{python}
+sql = f"""
+show tables;
+"""
+```
+
+And here is the result.
+
+```{python}
+#| echo: false
+#| eval: true
+df = run_query( sql )
+df
+```
+
+
+## Run a report of employee last names and manager last names
+
+Here is the query
+
+```{python}
+sql = f"""
+show tables;
+"""
+```
+
+And here is the result.
+
+```{python}
+#| echo: false
+#| eval: true
+df = run_query( sql )
+df
+```
+## Inner join
+
+![](./assets/inner-join.png)
+
+
+## Left join
+
+
+![](./assets/left-join.png)
+
+
+## Right Join
+
+![](./assets/right-join.png)
+
+
+## Outer join
+
+![](./assets/outer-join.png)
+
+
+
+## Question
+Write a query to get the job title and maximum salary of the employees where maximum salary for the job is >= $4000.
+
+## Question
+
+Write a query to get the average salary for all departments employing more than 10 employees.
+
+## Question
+
+Find the average salary of departments 50 and 80 only.
+
+## Question
+
+Find in which department there’s a biggest deviation of salaries among its employees.
