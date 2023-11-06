@@ -1,0 +1,118 @@
+---
+title: Homework 6 - Documenting an HR database
+author: (your name goes here!)
+date: last-modified
+format:
+    html:
+        theme: cosmo
+        toc: true
+        embed-resources: true
+        code-copy: true
+---
+
+As a highly prized and chased database wizard, you've been hired at an exorbitant hourly rate asked to document an HR database of a fortune 1_000_000 company.
+
+You've been given credentials to the database.
+
+Your tasks are to submit a report that contains:
+
+1. A general written description of contents of database,
+1. A Chen diagram highlighting the major entities and relations,
+1. A Crows-foot diagram highlighting the entities, attributes, and the cardinality and participation of the relations,
+1. A python-generated listing of SQL tables and fields, and
+1. A listing of sample data showing the first bunch (5 or 10 or so) of each table.
+1. All this will be documented in the report and the HTML report will be uploaded to canvas.
+
+(Update this link with your github URL! and then delete this comment.)
+Github repo: <https://github.com/cmsc-vcu/cmsc508-fa2023-hw6 ...>
+
+
+# Description
+
+(your description of the database goes here.  One or two paragraphs should suffice.  What is the purpose of the database? What are the
+major tables/relations?  What is stored in each table? Any other
+interesting features?)
+
+# Chen diagram
+
+The following diagram highlights the major relations in the database.
+
+# Crows foot diagram
+
+The following diagram provides greater detail on the entities and attributes and highlights the cardinality and participation of the relations.
+
+# Listing of tables in the database
+
+The following python blocks highlight the steps used to document the tables in the database.  The code is left in the report to show how fun it was to write python!
+
+## Load libraries
+
+(what is this code doing?)
+
+```{python}
+import os
+import pandas as pd
+from sqlalchemy import create_engine
+from dotenv import load_dotenv
+from IPython.display import Markdown
+from tabulate import tabulate
+```
+
+## Get credentials
+
+(what is this code doing?)
+
+```{python}
+# load credentials from file ~/.env to OS environment
+load_dotenv()
+
+# use these credentials to populate a dictionary
+config = {
+  'user': os.getenv("HW6_USER"),
+  'password': os.getenv("HW6_PASSWORD"),
+  'host': os.getenv("HW6_HOST"),
+  'database': os.getenv("HW6_DB_NAME")
+}
+```
+
+## Open connection to database
+
+(what is this code doing?)
+
+```{python}
+
+engine_uri = f"mysql+pymysql://{config['user']}:{config['password']}@{config['host']}/{config['database']}"
+cnx = create_engine(engine_uri)
+
+engine_uri_for_show = f"mysql+pymysql://{config['user']}:**pwd-goes-here**@{config['host']}/{config['database']}"
+print(engine_uri_for_show)
+
+```
+
+## Print list of tables 
+
+(copy/paste appropriate code from explore.html)
+(Add a description of what's happening IN YOUR OWN WORDS!)
+
+```{python}
+print("just add code!")
+```
+
+## Listing of sample data
+
+(copy/paste approriate code from explore.html)
+(Add a description of what's happening IN YOUR OWN WORDS!)
+
+```{python}
+print("just add code!")
+```
+
+# Reflection
+
+(Delete this text and replace it with your reflections:)
+
+1. Please add a paragraph or two about how this project went.
+1. Was it harder or easier than you expected?
+1. Did the instructor provide too much information or not enough information?
+1. Do you have suggestions for how it can be improved?
+1. How does this assignment relate to project deliverable 4?
